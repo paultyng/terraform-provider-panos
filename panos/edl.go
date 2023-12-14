@@ -1,12 +1,13 @@
 package panos
 
 import (
+	"context"
 	"strings"
 
 	"github.com/PaloAltoNetworks/pango"
 	"github.com/PaloAltoNetworks/pango/objs/edl"
 
-	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
 // Data source (listing).
@@ -145,7 +146,7 @@ func resourcePanoramaEdl() *schema.Resource {
 	}
 }
 
-func edlUpgradeV0(raw map[string]interface{}, meta interface{}) (map[string]interface{}, error) {
+func edlUpgradeV0(ctx context.Context, raw map[string]interface{}, meta interface{}) (map[string]interface{}, error) {
 	if _, ok := raw["vsys"]; !ok {
 		raw["vsys"] = "vsys1"
 	}

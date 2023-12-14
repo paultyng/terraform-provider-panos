@@ -1,6 +1,7 @@
 package panos
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"strconv"
@@ -11,7 +12,7 @@ import (
 	"github.com/PaloAltoNetworks/pango/poli/security"
 	"github.com/PaloAltoNetworks/pango/util"
 
-	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
 // Data source (listing).
@@ -133,7 +134,7 @@ func resourceSecurityRuleGroup() *schema.Resource {
 	}
 }
 
-func securityRuleUpgradeV0(raw map[string]interface{}, meta interface{}) (map[string]interface{}, error) {
+func securityRuleUpgradeV0(ctx context.Context, raw map[string]interface{}, meta interface{}) (map[string]interface{}, error) {
 	if _, ok := raw["rulebase"]; !ok {
 		raw["rulebase"] = util.PreRulebase
 	}

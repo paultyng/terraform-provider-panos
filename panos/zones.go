@@ -1,13 +1,14 @@
 package panos
 
 import (
+	"context"
 	"log"
 	"strings"
 
 	"github.com/PaloAltoNetworks/pango"
 	"github.com/PaloAltoNetworks/pango/netw/zone"
 
-	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
 // Data source (listing).
@@ -130,7 +131,7 @@ func resourceZone() *schema.Resource {
 	}
 }
 
-func zoneUpgradeV0(raw map[string]interface{}, meta interface{}) (map[string]interface{}, error) {
+func zoneUpgradeV0(ctx context.Context, raw map[string]interface{}, meta interface{}) (map[string]interface{}, error) {
 	if _, ok := raw["template"]; !ok {
 		raw["template"] = ""
 	}
@@ -318,7 +319,7 @@ func resourcePanoramaZoneEntry() *schema.Resource {
 	}
 }
 
-func zoneEntryUpgradeV0(raw map[string]interface{}, meta interface{}) (map[string]interface{}, error) {
+func zoneEntryUpgradeV0(ctx context.Context, raw map[string]interface{}, meta interface{}) (map[string]interface{}, error) {
 	if _, ok := raw["template"]; !ok {
 		raw["template"] = ""
 	}

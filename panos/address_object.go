@@ -1,6 +1,7 @@
 package panos
 
 import (
+	"context"
 	"log"
 	"strings"
 	"time"
@@ -8,7 +9,7 @@ import (
 	"github.com/PaloAltoNetworks/pango"
 	"github.com/PaloAltoNetworks/pango/objs/addr"
 
-	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
 // Data source (listing).
@@ -140,7 +141,7 @@ func resourcePanoramaAddressObject() *schema.Resource {
 	}
 }
 
-func addressObjectUpgradeV0(raw map[string]interface{}, meta interface{}) (map[string]interface{}, error) {
+func addressObjectUpgradeV0(ctx context.Context, raw map[string]interface{}, meta interface{}) (map[string]interface{}, error) {
 	if _, ok := raw["vsys"]; ok {
 		raw["device_group"] = "shared"
 	}
